@@ -1,0 +1,29 @@
+{
+  "name": "sso-ui",
+  "version": "1.0.0",
+  "description": "Minimal, type-safe Universitas Indonesia SSO client (CAS 1.0, 2.0, 3.0)",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup index.ts --format cjs,esm --dts --clean"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.11.2"
+  },
+  "devDependencies": {
+    "tsup": "^9.0.0",
+    "typescript": "^5.8.2"
+  },
+  "license": "MIT"
+}
