@@ -1,13 +1,13 @@
 {
     "name": "sso-ui.js",
     "version": "1.0.0",
-    "description": "Library fo SSO UI",
+    "description": "Minimal, type-safe Universitas Indonesia SSO client (CAS 1.0, 2.0, 3.0)",
     "license": "Artistic-2.0",
     "author": "PIPL Authors",
     "type": "commonjs",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "tsup index.ts --format cjs,esm --dts --clean"
     },
     "dependencies": {
         "fast-xml-parser": "^5.11.2"
