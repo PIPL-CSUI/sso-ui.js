@@ -1,59 +1,76 @@
 /**
- * 1.0": /validate
- * 2.0": /serviceValidate
- * 3.0": /p3/serviceValidate
+ * * `"1.0"`: `/validate`
+ * * `"2.0"`: `/serviceValidate`
+ * * `"3.0"`: `/p3/serviceValidate`
  */
 export type CASVersion = "1.0" | "2.0" | "3.0"
 
 /**
  * the vocabulary for kd_org field
  */
-export interface OrgDetails 
+export interface OrgDetails
 {
-    fakultas: string // faculty name in id.  Ex: Fakultas Ilmu Komputer
-    faculty:  string // faculty name in en.  Ex: Faculty of Computer Science
-    
-    fak: string // short name in id.  Ex: Fasilkom, FT, FK; vernacular names
-    fac: string // short name in en.  Ex: CS, SCI; based on faculty homepage subdomain
-    
-    departemen: string // department name in id, based on the faculty.  Ex: Departemen Matematika
-    department: string // department name in en, based on the faculty.  Ex: Department of Mathematics
+	/** Faculty name in id. e.g. Fakultas Ilmu Komputer */
+    fakultas: string
+	/** Faculty name in en. e.g. Faculty of Computer Science */
+    faculty:  string
 
-    dep: string // department short name. Ex: DTE, MATH
+	/** Short name in id. e.g. Fasilkom, FT, FK; vernacular names */
+    fak: string
+	/** Short name in en. e.g. CS, SCI; based on faculty homepage subdomain */
+    fac: string
 
-    // this ones kinda meh
-    prodi: string // major name in id.  Ex: Sarjana Ilmu Komputer
-    major: string // major name in en.  Ex: Bachelor of Computer Science
+	/** Department name in id, based on the faculty. e.g. Departemen Matematika */
+    departemen: string
+	/** Department name in en, based on the faculty. e.g. Department of Mathematics */
+    department: string
+
+	/** Department short name. e.g. DTE, MATH */
+    dep: string
+
+    /** Major name in id. e.g. Sarjana Ilmu Komputer */
+    prodi: string
+	/** Major name in en. e.g. Bachelor of Computer Science */
+    major: string
 
     // backward compat
-    studyProgram?: string        // alias for prodi
-    educationalProgram?: string  // jenjang
+	/** alias for prodi */
+    studyProgram?: string
+	/** jenjang */
+    educationalProgram?: string
 }
 
 /**
  * user but normalized
  */
-export interface SSOUser 
+export interface SSOUser
 {
-    username: string // SSO username
-    name: string     // full name
-    
+	/** SSO username */
+    username: string
+	/** Full name */
+    name: string
+
     role: "mahasiswa" | "staff" | string
-    
-    npm?: string // npm if "mahasiswa"
-    nip?: string // nip if "staff"
-    
-    orgCode?: string // organization code; kd_org
-    
+
+	/** NPM if {@linkcode role} is `"mahasiswa"` */
+    npm?: string
+	/** NPM if {@linkcode role} is `"staff"` */
+    nip?: string
+
+	/** organization code; `kd_org` */
+    orgCode?: string
+
     organization?: OrgDetails
 
-    ldapCn?: string // common name for LDAP
+	/** Common name for LDAP */
+    ldapCn?: string
 
-    rawAttributes: Record<string, string> // raw
+	/** Raw attributes */
+    rawAttributes: Record<string, string>
 }
 
 
-export interface SSOConfig 
+export interface SSOConfig
 {
     /**
     * base url
@@ -76,29 +93,29 @@ export interface SSOConfig
     */
     timeoutMs?: number
 
-
     fetch?: typeof globalThis.fetch // this one gonna defaults to globalThis.fetch
 }
 
 
-export interface LoginUrlOptions 
+export interface LoginUrlOptions
 {
-    serviceUrl?: string // URL to redirect after the login
+	/** URL to redirect after the login */
+    serviceUrl?: string
 
     renew?: boolean
     gateway?: boolean
 }
 
 
-export interface LogoutUrlOptions 
+export interface LogoutUrlOptions
 {
     serviceUrl?: string
-    
+
     url?: string
 }
 
 
-export interface ValidateTicketOptions 
+export interface ValidateTicketOptions
 {
     serviceUrl?: string //
 
@@ -111,14 +128,14 @@ export interface ValidateTicketOptions
 
 ////
 
-export type res = 
-| { 
-    success: true; 
-    user: SSOUser; 
-    error?: never 
-} 
-| { 
-    success: false; 
-    user?: never; 
-    error: Error 
+export type res =
+| {
+    success: true;
+    user: SSOUser;
+    error?: never
+}
+| {
+    success: false;
+    user?: never;
+    error: Error
 }
