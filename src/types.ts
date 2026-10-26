@@ -34,7 +34,7 @@ export interface OrgDetails
     major: string
 
     // backward compat
-	/** alias for prodi */
+	/** Alias for {@linkcode prodi} */
     studyProgram?: string
 	/** jenjang */
     educationalProgram?: string
@@ -57,7 +57,7 @@ export interface SSOUser
 	/** NPM if {@linkcode role} is `"staff"` */
     nip?: string
 
-	/** organization code; `kd_org` */
+	/** Organization code; `kd_org` */
     orgCode?: string
 
     organization?: OrgDetails
