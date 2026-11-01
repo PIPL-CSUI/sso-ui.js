@@ -6,136 +6,130 @@
 export type CASVersion = "1.0" | "2.0" | "3.0"
 
 /**
- * the vocabulary for kd_org field
+ * The vocabulary for kd_org field
  */
-export interface OrgDetails
-{
+export interface OrgDetails {
 	/** Faculty name in id. e.g. Fakultas Ilmu Komputer */
-    fakultas: string
+	fakultas: string
 	/** Faculty name in en. e.g. Faculty of Computer Science */
-    faculty:  string
+	faculty: string
 
 	/** Short name in id. e.g. Fasilkom, FT, FK; vernacular names */
-    fak: string
+	fak: string
 	/** Short name in en. e.g. CS, SCI; based on faculty homepage subdomain */
-    fac: string
+	fac: string
 
 	/** Department name in id, based on the faculty. e.g. Departemen Matematika */
-    departemen: string
+	departemen: string
 	/** Department name in en, based on the faculty. e.g. Department of Mathematics */
-    department: string
+	department: string
 
 	/** Department short name. e.g. DTE, MATH */
-    dep: string
+	dep: string
 
-    /** Major name in id. e.g. Sarjana Ilmu Komputer */
-    prodi: string
+	/** Major name in id. e.g. Sarjana Ilmu Komputer */
+	prodi: string
 	/** Major name in en. e.g. Bachelor of Computer Science */
-    major: string
+	major: string
 
-    // backward compat
+	// backward compat
 	/** Alias for {@linkcode prodi} */
-    studyProgram?: string
+	studyProgram?: string
 	/** jenjang */
-    educationalProgram?: string
+	educationalProgram?: string
 }
 
 /**
  * user but normalized
  */
-export interface SSOUser
-{
+export interface SSOUser {
 	/** SSO username */
-    username: string
+	username: string
 	/** Full name */
-    name: string
+	name: string
 
-    role: "mahasiswa" | "staff" | string
+	role: "mahasiswa" | "staff" | string
 
 	/** NPM if {@linkcode role} is `"mahasiswa"` */
-    npm?: string
+	npm?: string
 	/** NPM if {@linkcode role} is `"staff"` */
-    nip?: string
+	nip?: string
 
 	/** Organization code; `kd_org` */
-    orgCode?: string
+	orgCode?: string
 
-    organization?: OrgDetails
+	organization?: OrgDetails
 
 	/** Common name for LDAP */
-    ldapCn?: string
+	ldapCn?: string
 
 	/** Raw attributes */
-    rawAttributes: Record<string, string>
+	rawAttributes: Record<string, string>
 }
 
 
-export interface SSOConfig
-{
-    /**
-    * base url
-    * @default "https://sso.ui.ac.id/cas2"
-    */
-    casUrl?: string
+export interface SSOConfig {
+	/**
+	* Base URL
+	* @default `"https://sso.ui.ac.id/cas2"`
+	*/
+	casUrl?: string
 
-    /**
-    * @default "2.0"
-    */
-    version?: CASVersion
+	/**
+	* @default `"2.0"`
+	*/
+	version?: CASVersion
 
-    /**
-    * callback url for your app
-    */
-    serviceUrl?: string
+	/**
+	* Callback URL for your app
+	*/
+	serviceUrl?: string
 
-    /**
-    * @default 10000
-    */
-    timeoutMs?: number
+	/**
+	* @default 10000
+	*/
+	timeoutMs?: number
 
-    fetch?: typeof globalThis.fetch // this one gonna defaults to globalThis.fetch
+	/** Defaults to `globalThis.fetch` */
+	fetch?: typeof globalThis.fetch
 }
 
 
-export interface LoginUrlOptions
-{
+export interface LoginUrlOptions {
 	/** URL to redirect after the login */
-    serviceUrl?: string
+	serviceUrl?: string
 
-    renew?: boolean
-    gateway?: boolean
+	renew?: boolean
+	gateway?: boolean
 }
 
 
-export interface LogoutUrlOptions
-{
-    serviceUrl?: string
+export interface LogoutUrlOptions {
+	serviceUrl?: string
 
-    url?: string
+	url?: string
 }
 
+export interface ValidateTicketOptions {
+	serviceUrl?: string
 
-export interface ValidateTicketOptions
-{
-    serviceUrl?: string //
+	version?: CASVersion
 
-    version?: CASVersion //
+	signal?: AbortSignal
 
-    signal?: AbortSignal //
-
-    fetchOptions?: RequestInit //
+	fetchOptions?: RequestInit
 }
 
 ////
 
 export type res =
-| {
-    success: true;
-    user: SSOUser;
-    error?: never
-}
-| {
-    success: false;
-    user?: never;
-    error: Error
-}
+	| {
+		success: true
+		user: SSOUser
+		error?: never
+	}
+	| {
+		success: false
+		user?: never
+		error: Error
+	}
